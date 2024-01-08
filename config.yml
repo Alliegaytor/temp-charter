@@ -1,0 +1,7 @@
+# https://api.pirateweather.net/forecast/[apikey]/[latitude],[longitude],[unixtimestamp]
+
+url: "https://api.pirateweather.net/forecast/"
+apikey: ""
+latitude: "-37.8142454"
+longitude: "144.9631732"
+startTime: "1704355200"
