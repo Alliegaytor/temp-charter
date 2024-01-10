@@ -79,7 +79,7 @@ print(data)
 df = pd.DataFrame.from_dict(data, orient="index", columns=['temp'])
 df.index.names = ['time']
 # Change GMT to local and remove "GMT+x" from index
-df.index = pd.to_datetime(df.index, unit='s').tz_localize('UTC').tz_convert('Australia/Melbourne').tz_localize(None) # Timezone hack
+df.index = pd.to_datetime(df.index, unit='s').tz_localize('UTC').tz_convert(constants['timezone']).tz_localize(None) # Timezone hack
 
 df.to_csv(f"out_{todayDate}.csv")
 

@@ -15,3 +15,6 @@ longitude: "144.9631732"
 # timeRange: int
 # Amount of time, in seconds before now, to grab weather data from api
 timeRange: 90000 # 1 day 1 hour
+
+# timezone: str
+timezone: "Australia/Melbourne"
