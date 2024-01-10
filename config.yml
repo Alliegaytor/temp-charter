@@ -1,7 +1,17 @@
 # https://api.pirateweather.net/forecast/[apikey]/[latitude],[longitude],[unixtimestamp]
 
+# url: str
+# API URL. Pirate Weather by default
 url: "https://api.pirateweather.net/forecast/"
+# apikey: str
+# API Key. Do not share!
 apikey: ""
+
+# latitude: str
 latitude: "-37.8142454"
+# longitude: str
 longitude: "144.9631732"
-startTime: "1704355200"
+
+# timeRange: int
+# Amount of time, in seconds before now, to grab weather data from api
+timeRange: 90000 # 1 day 1 hour

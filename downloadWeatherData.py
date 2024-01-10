@@ -12,6 +12,7 @@ from time import time, sleep
 from random import random
 import requests
 import pandas as pd
+from datetime import date
 
 with open ('config.yml', 'r') as config:
     constants = yaml.safe_load(config)
@@ -28,6 +29,16 @@ data = {}
 
 baseurl = constants['url'] + constants['apikey'] + "/" + constants['latitude'] + "," + constants['longitude'] + ","
 
+todayDate = date.today().strftime('%Y-%m-%d')
+
+currentUnixTime = round(int(time()) / (30 * 60)) * 30 * 60 # nearest 30 min to now
+
+# (Psudeo-)random sleep time to keep the api happy
+def apiSleep() -> float:
+    return 0.2 * (0.2 + random()) + 0.1
+
+
+# Format URL string with excluded properties
 def formatUrl(url: str, excluded: [str]) -> str:
     exclude_count = len(excluded)
 
@@ -47,11 +58,11 @@ def formatUrl(url: str, excluded: [str]) -> str:
     return url
 
 
-for currentTime in range(int(constants['startTime']), int(time()), interval):
+for currentTime in range(currentUnixTime - constants['timeRange'], currentUnixTime, interval):
     url = formatUrl(baseurl + str(currentTime), excluded)
 
     print(data)
-    sleep(0.2 * (0.2 + random()) + 0.1)
+    sleep(apiSleep())
     weather = requests.get(url, timeout=20).json()
 
     try:
@@ -70,6 +81,6 @@ df.index.names = ['time']
 # Change GMT to local and remove "GMT+x" from index
 df.index = pd.to_datetime(df.index, unit='s').tz_localize('UTC').tz_convert('Australia/Melbourne').tz_localize(None) # Timezone hack
 
-df.to_csv("out.csv")
+df.to_csv(f"out_{todayDate}.csv")
 
 exit()
