@@ -32,8 +32,10 @@ def mergeIndividualCsv(files: [str]) -> pd.DataFrame:
     dataframes = []
     # merged = pd.DataFrame
     for csv in files:
-        dataframes.append(pd.read_csv(csv))
-    return pd.concat(dataframes).drop_duplicates().reset_index(drop=True)
+        df = pd.read_csv(csv)
+        df.columns = ['time', 'temp']
+        dataframes.append(df)
+    return pd.concat(dataframes).drop_duplicates(subset='time').reset_index(drop=True)
 
 
 # Backup csv files
@@ -54,18 +56,12 @@ print(tempout)
 tempout.to_csv(tempoutcsvname, index=False)
 tempin.to_csv(tempincsvname, index=False)
 
-# ensure lowercase
-tempin.columns = tempin.columns.str.lower()
-tempout.columns = tempout.columns.str.lower()
-
-tempin.columns = ['time', 'temp']
-
 tempin['temp'] = tempin['temp'].map(lambda x: str(x)[:-3]) # Remove "°C"
 
-print(tempin.head())
-print(tempout.head())
+print(tempin.tail())
+print(tempout.tail())
 
-tempmerge = pd.merge(tempin, tempout, on='time')
+tempmerge = pd.merge(tempin, tempout, on='time').drop_duplicates(subset=['time'])
 
 print(tempmerge)
 
