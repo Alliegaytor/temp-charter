@@ -6,7 +6,6 @@ Saves historical temperature data from pirateweather as csv.
 Requires API key: http://pirateweather.net/en/latest/
 """
 
-import json
 import yaml
 from time import time, sleep
 from random import random

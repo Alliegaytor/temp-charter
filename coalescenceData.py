@@ -5,10 +5,6 @@ Author: Alliegaytor
 Combine data from out.csv and in.csv.
 """
 
-import json
-from time import time, sleep
-from random import random
-import requests
 import pandas as pd
 from os import listdir
 from shutil import copy2
