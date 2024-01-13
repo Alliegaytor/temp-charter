@@ -35,3 +35,23 @@ print(data['delta'])
 data['delta'].plot().set_ylabel('ΔT (T_indoors - T_outdoors)')
 plt.savefig('plot_delta.png')
 plt.show()
+
+# Min, max, mean per 24hr
+
+del data['delta']
+del data['T_outdoors']
+
+resampled = data['T_indoors'].resample('D')
+
+del data['T_indoors']
+
+data['T_max'] = resampled.transform('max')
+data['T_min'] = resampled.transform('min')
+data['T_avg'] = resampled.transform('mean')
+
+data = data.resample('D').first()
+
+print(data)
+
+data.plot().set_ylabel('temperature Celcius')
+plt.show()
