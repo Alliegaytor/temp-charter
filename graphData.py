@@ -55,3 +55,7 @@ print(data)
 
 data.plot().set_ylabel('temperature Celcius')
 plt.show()
+
+print('\n' + '=' * 20)
+print('Days above 30°C:', sum(data['T_max'] >= 30))
+print('Days below 20°C:', sum(data['T_min'] <=20))
