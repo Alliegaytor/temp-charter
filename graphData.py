@@ -54,6 +54,7 @@ data = data.resample('D').first()
 print(data)
 
 data.plot().set_ylabel('temperature Celcius')
+plt.savefig('plot_daily.png')
 plt.show()
 
 print('\n' + '=' * 20)
