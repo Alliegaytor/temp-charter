@@ -4,9 +4,10 @@ Some small python scripts to:
 2. concat the data with the data from my temperature sensor
 3. graph the data
 
-<details> 
+<details>
   <summary>example graphs </summary>
 
+![](plot_7day.png)
 ![](plot.png)
 ![](plot_delta.png)
 
@@ -22,4 +23,3 @@ To download pirate weather data in 30 min intervals simply add your apikey, lat,
 If you have the same temperature data structure as in my `in.csv`, then you can run `coalescenceData.py` and it will combine the `in.csv` and `out.csv` as well as any other `in*.csv` and `out*.csv` files you have in the directory. It will then save a `merged.csv` with the data merged nicely.
 
 You can then run `graphData.py` to generate some nice looking charts. These include comparing outside vs. inside temperatures, finding the difference between them, and calculating the minimum, maximum, and average temperature per day.
-
