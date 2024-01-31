@@ -30,8 +30,9 @@ def mergeIndividualCsv(files: [str]) -> pd.DataFrame:
     for csv in files:
         df = pd.read_csv(csv)
         df.columns = ['time', 'temp']
+        # sensor data uses 'ms' rather than 's'
         if csv == 'in_new.csv':
-            df['time'] = df['time'] / 1000
+            df['time'] = df['time'] / 1000 # divide to get seconds
         df['temp'] = df['temp'].round(2)
         dataframes.append(df)
     return pd.concat(dataframes).drop_duplicates(subset='time').reset_index(drop=True)
@@ -42,9 +43,7 @@ def backupCsv(name: str, suffix: str) -> None:
     copy2(f'./{name}', f'./backup/{name + suffix}')
 
 
-tempin = mergeIndividualCsv(['in.csv', 'in_new.csv'])
-
-# tempin = mergeIndividualCsv(findCsvFiles(tempincsvname, './'))
+tempin = mergeIndividualCsv(['in.csv', 'in_new.csv']) # hardcode due to different time format
 tempout = mergeIndividualCsv(findCsvFiles(tempoutcsvname, './'))
 
 backupCsv(tempincsvname, '.bak')
