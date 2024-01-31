@@ -30,6 +30,9 @@ def mergeIndividualCsv(files: [str]) -> pd.DataFrame:
     for csv in files:
         df = pd.read_csv(csv)
         df.columns = ['time', 'temp']
+        if csv == 'in_new.csv':
+            df['time'] = df['time'] / 1000
+        df['temp'] = df['temp'].round(2)
         dataframes.append(df)
     return pd.concat(dataframes).drop_duplicates(subset='time').reset_index(drop=True)
 
@@ -39,7 +42,9 @@ def backupCsv(name: str, suffix: str) -> None:
     copy2(f'./{name}', f'./backup/{name + suffix}')
 
 
-tempin = mergeIndividualCsv(findCsvFiles(tempincsvname, './'))
+tempin = mergeIndividualCsv(['in.csv', 'in_new.csv'])
+
+# tempin = mergeIndividualCsv(findCsvFiles(tempincsvname, './'))
 tempout = mergeIndividualCsv(findCsvFiles(tempoutcsvname, './'))
 
 backupCsv(tempincsvname, '.bak')
@@ -52,7 +57,7 @@ print(tempout)
 tempout.to_csv(tempoutcsvname, index=False)
 tempin.to_csv(tempincsvname, index=False)
 
-tempin['temp'] = tempin['temp'].map(lambda x: str(x)[:-3]) # Remove "°C"
+# tempin['temp'] = tempin['temp'].map(lambda x: str(x)[:-3]) # Remove "°C"
 
 print(tempin.tail())
 print(tempout.tail())

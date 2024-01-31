@@ -69,7 +69,7 @@ for currentTime in range(currentUnixTime - constants['timeRange'], currentUnixTi
     except:
         data[currentTime] = "NaN"
         print("error, sleeping for a bit")
-        sleep(5)
+        sleep(apiSleep()) * 2
 
 
 print(data)
@@ -77,8 +77,6 @@ print(data)
 # Create pandas dataframe from data
 df = pd.DataFrame.from_dict(data, orient="index", columns=['temp'])
 df.index.names = ['time']
-# Change GMT to local and remove "GMT+x" from index
-df.index = pd.to_datetime(df.index, unit='s').tz_localize('UTC').tz_convert(constants['timezone']).tz_localize(None) # Timezone hack
 
 df.to_csv(f"out_{todayDate}.csv")
 
