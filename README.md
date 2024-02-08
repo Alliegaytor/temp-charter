@@ -1,11 +1,11 @@
 Some small python scripts to:
 
 1. parse and save historical weather data (temperature in 30 min intervals) from pirate weather api
-2. concat the data with the data from my temperature sensor
+2. concat the data with the data from my temperature sensor (grafana or influxdb)
 3. graph the data
 
 <details>
-  <summary>example graphs </summary>
+  <summary>click for graphs </summary>
 
 ![](plot_7day.png)
 ![](plot.png)
@@ -24,4 +24,4 @@ Anyone can run the weather data collection script easily, but you must have an i
 
 3. You can then run `graphData.py` to generate some nice looking charts. These include comparing outside vs. inside temperatures, finding the difference between them, and calculating the minimum, maximum, and average temperature per day.
 
-There is an example `in_new.csv` and `out_${date +%F}.csv` provided in this repo.
+There is an example `in_new.csv` and `out_${date +%F}.csv` provided in this repo, as well as the flux script I use in a notebook to export the sensor data.

@@ -28,8 +28,12 @@ def mergeIndividualCsv(files: [str]) -> pd.DataFrame:
     dataframes = []
     # merged = pd.DataFrame
     for csv in files:
-        df = pd.read_csv(csv)
-        df.columns = ['time', 'temp']
+        # supports both grafana and influxdb csv
+        df = pd.read_csv(
+            csv,
+            comment='#',
+            usecols=lambda x: x.lower() in ['time', 'temp']
+        )[['time', 'temp']] # force time,temp order
         # sensor data uses 'ms' rather than 's'
         if csv == 'in_new.csv':
             df['time'] = df['time'] / 1000 # divide to get seconds
