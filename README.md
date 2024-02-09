@@ -10,9 +10,10 @@ It's designed around the [sensor-software](https://github.com/opendata-stuttgart
 <details>
   <summary>click for graphs </summary>
 
-![](plot_7day.png)
-![](plot.png)
-![](plot_delta.png)
+![](plot/plot_7day.png)
+![](plot/plot_delta.png)
+![](plot/plot_daily.png)
+![](plot/plot.png)
 
 </details>
 
