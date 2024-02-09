@@ -30,7 +30,7 @@ print(data)
 data.index = pd.to_datetime(data.index, unit='s').tz_localize('UTC').tz_convert(constants['timezone']).tz_localize(None)
 
 data.plot().set_ylabel('temperature Celcius')
-plt.savefig('plot.png')
+plt.savefig('plot/plot.png')
 plt.show()
 
 data['delta'] = data['T_indoors'] - data['T_outdoors']
@@ -38,7 +38,7 @@ data['delta'] = data['T_indoors'] - data['T_outdoors']
 print(data['delta'])
 
 data['delta'].plot().set_ylabel('ΔT (T_indoors - T_outdoors)')
-plt.savefig('plot_delta.png')
+plt.savefig('plot/plot_delta.png')
 plt.show()
 
 # last 7 days @ 30 min interval = 336 data points
@@ -47,7 +47,7 @@ interval = data.index[-1] - data.index[-2]
 interval7d = round('7D' / interval) # python type magic
 
 data.tail(interval7d).plot().set_ylabel('temperature Celcius')
-plt.savefig('plot_7day.png')
+plt.savefig('plot/plot_7day.png')
 plt.show()
 
 # Min, max, mean per 24hr
@@ -70,7 +70,7 @@ data = data.resample('D').first()
 print(data)
 
 data.plot().set_ylabel('temperature Celcius')
-plt.savefig('plot_daily.png')
+plt.savefig('plot/plot_daily.png')
 plt.show()
 
 print('\n' + '=' * 20)
