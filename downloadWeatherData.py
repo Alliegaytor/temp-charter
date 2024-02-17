@@ -69,7 +69,7 @@ for currentTime in range(currentUnixTime - constants['timeRange'], currentUnixTi
     except:
         data[currentTime] = "NaN"
         print("error, sleeping for a bit")
-        sleep(apiSleep()) * 2
+        sleep(apiSleep() * 2)
 
 
 print(data)
