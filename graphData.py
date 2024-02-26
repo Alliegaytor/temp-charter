@@ -29,7 +29,13 @@ print(data)
 
 data.index = pd.to_datetime(data.index, unit='s').tz_localize('UTC').tz_convert(constants['timezone']).tz_localize(None)
 
-data.plot().set_ylabel('temperature Celcius')
+# last 7 days @ 30 min interval = 336 data points
+# TODO: Figure out a better way of using last x days
+index_interval = data.index[-1] - data.index[-2]
+short_interval = round(constants['short_interval'] / index_interval) # python type magic
+large_interval = round(constants['large_interval'] / index_interval)
+
+data.tail(large_interval).plot().set_ylabel('temperature Celcius')
 plt.savefig('plot/plot.png')
 plt.show()
 
@@ -37,16 +43,13 @@ data['delta'] = data['T_indoors'] - data['T_outdoors']
 
 print(data['delta'])
 
-data['delta'].plot().set_ylabel('ΔT (T_indoors - T_outdoors)')
+data['delta'].tail(large_interval).plot().set_ylabel('ΔT (T_indoors - T_outdoors)')
 plt.savefig('plot/plot_delta.png')
 plt.show()
 
-# last 7 days @ 30 min interval = 336 data points
-# TODO: Figure out a better way of using last x days
-interval = data.index[-1] - data.index[-2]
-interval7d = round('7D' / interval) # python type magic
+del data['delta']
 
-data.tail(interval7d).plot().set_ylabel('temperature Celcius')
+data.tail(short_interval).plot().set_ylabel('temperature Celcius')
 plt.savefig('plot/plot_7day.png')
 plt.show()
 
@@ -54,7 +57,6 @@ plt.show()
 
 dataold = data.copy()
 
-del data['delta']
 del data['T_outdoors']
 
 resampled = data['T_indoors'].resample('D')
@@ -65,7 +67,7 @@ data['T_max'] = resampled.transform('max')
 data['T_min'] = resampled.transform('min')
 data['T_avg'] = resampled.transform('mean')
 
-data = data.resample('D').first()
+data = data.resample('D').first().tail(large_interval)
 
 print(data)
 

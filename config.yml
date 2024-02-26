@@ -18,3 +18,9 @@ timeRange: 90000 # 1 day 1 hour
 
 # timezone: str
 timezone: "Australia/Melbourne"
+
+# short_interval: str
+short_interval: '7D'
+
+# large_interval: str
+large_interval: '28D'
