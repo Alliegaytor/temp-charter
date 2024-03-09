@@ -12,6 +12,8 @@ from random import random
 import requests
 import pandas as pd
 from datetime import date
+from sys import argv
+import subprocess
 
 with open ('config.yml', 'r') as config:
     constants = yaml.safe_load(config)
@@ -30,7 +32,30 @@ baseurl = constants['url'] + constants['apikey'] + "/" + constants['latitude'] +
 
 todayDate = date.today().strftime('%Y-%m-%d')
 
-currentUnixTime = round(int(time()) / (30 * 60)) * 30 * 60 # nearest 30 min to now
+
+# Get Nearest n minute time
+def nearestMin(raw_time: float, n: int) -> int:
+    return round(int(raw_time) / (n * 60)) * n * 60
+
+
+currentUnixTime = nearestMin(time(), 30) # nearest 30 min to now
+
+# Parse any args
+try:
+    if argv[1] == "-t":
+        print("Calculating collection time based on last entry")
+        # TODO: Find a pythonic way
+        lastLineOut = subprocess.check_output(['tail', '-1', 'out.csv']).decode("utf-8")
+        lastTimeOut = int(lastLineOut.split('.')[0])
+        print(f"Time now (last recorded): {currentUnixTime} ({lastTimeOut})")
+        downloadRange = nearestMin(currentUnixTime - lastTimeOut, 30) + 60 * 30 * 2
+    else:
+        throw("")
+except:
+    downloadRange = constants['timeRange']
+
+print(f"Download range has been set to : {downloadRange}")
+
 
 # (Psudeo-)random sleep time to keep the api happy
 def apiSleep() -> float:
@@ -57,7 +82,7 @@ def formatUrl(url: str, excluded: [str]) -> str:
     return url
 
 
-for currentTime in range(currentUnixTime - constants['timeRange'], currentUnixTime, interval):
+for currentTime in range(currentUnixTime - downloadRange, currentUnixTime, interval):
     url = formatUrl(baseurl + str(currentTime), excluded)
 
     print(data)
