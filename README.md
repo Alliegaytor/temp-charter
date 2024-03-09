@@ -22,7 +22,7 @@ It's designed around the [sensor-software](https://github.com/opendata-stuttgart
 
 Anyone can run the weather data collection script easily, but you must have an in.csv file formated just like how I do to use the other two scripts. Hopefully the code is simple enough to tweak to your data setup :)
 
-1. To download pirate weather data in 30 min intervals simply add your apikey, lat, long, timezone, and how far back you want to go in `config.yml`. Then run [downloadWeatherData.py](./downloadWeatherData.py). It will output the data to `out_${date +%F}.csv`.
+1. To download pirate weather data in 30 min intervals simply add your apikey, lat, long, timezone, and how far back you want to go in `config.yml`. Then run [downloadWeatherData.py](./downloadWeatherData.py). It will output the data to `out_${date +%F}.csv`. By passting the option `-t` it will attempt to calculate how far back should be downloaded based on the last recorded time in `out.csv`.
 
 2. Assuming you are using influxdb v2 and have the same data structure (and have bash), the [exportInfluxdbData.sh](./exportInfluxdbData.sh) will attempt to export the last 7 days of temperature data to `in_new.csv` using curl to send the [influxdb.flux](./influxdb.flux) script to influxdb and recieve the response. Make sure you add your apikey and server ip to the script.
 
