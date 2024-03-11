@@ -7,7 +7,6 @@ Combine data from out.csv and in.csv.
 
 import pandas as pd
 from os import listdir
-from shutil import copy2
 
 tempincsvname = 'in.csv'
 tempoutcsvname = 'out.csv'
@@ -42,17 +41,8 @@ def mergeIndividualCsv(files: [str]) -> pd.DataFrame:
     return pd.concat(dataframes).drop_duplicates(subset='time').reset_index(drop=True)
 
 
-# Backup csv files
-def backupCsv(name: str, suffix: str) -> None:
-    copy2(f'./{name}', f'./backup/{name + suffix}')
-
-
 tempin = mergeIndividualCsv(['in.csv', 'in_new.csv']) # hardcode due to different time format
 tempout = mergeIndividualCsv(findCsvFiles(tempoutcsvname, './'))
-
-backupCsv(tempincsvname, '.bak')
-backupCsv(tempoutcsvname, '.bak')
-backupCsv('merged.csv', '.bak')
 
 print(tempin)
 print(tempout)
