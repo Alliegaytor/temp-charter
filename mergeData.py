@@ -65,7 +65,7 @@ tempin.to_csv(tempincsvname, index=False)
 print(tempin.tail())
 print(tempout.tail())
 
-tempmerge = pd.merge(tempin, tempout, on='time').drop_duplicates(subset=['time'])
+tempmerge = pd.merge(tempin, tempout, how='outer', on='time', sort=True).drop_duplicates(subset=['time'])
 
 print(tempmerge)
 
