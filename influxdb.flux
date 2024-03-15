@@ -2,7 +2,7 @@ import "math"
 import "date"
 
 from(bucket: "influx")
-  |> range(start: -7d, stop: date.truncate(t: now(), unit:15m))
+  |> range(start: -7d, stop: date.truncate(t: now(), unit:30m))
   |> filter(fn: (r) => r["_measurement"] == "feinstaub")
   |> filter(fn: (r) => r["_field"] == "BME280_temperature")
   |> filter(fn: (r) => r["node"] == "esp8266-15514816")
