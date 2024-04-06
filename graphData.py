@@ -59,6 +59,10 @@ dataold = data.copy()
 
 del data['T_outdoors']
 
+data.tail(large_interval).plot().set_ylabel('temperature Celcius')
+plt.savefig('plot/plot_no_outdoors.png')
+plt.show()
+
 resampled = data['T_indoors'].resample('D')
 
 del data['T_indoors']
