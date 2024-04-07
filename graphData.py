@@ -27,7 +27,7 @@ data.columns = ['T_indoors', 'T_outdoors']
 
 print(data)
 
-data.index = pd.to_datetime(data.index, unit='s').tz_localize('UTC').tz_convert(constants['timezone']).tz_localize(None)
+data.index = pd.to_datetime(data.index, unit='s').tz_localize('UTC').tz_convert(constants['timezone'])
 
 # last 7 days @ 30 min interval = 336 data points
 # TODO: Figure out a better way of using last x days
