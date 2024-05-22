@@ -1,0 +1,7 @@
+#group,false,false,true,true,false,false,true,true,true
+#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string
+#default,_result,,,,,,,,
+,result,table,_start,_stop,_time,_value,_field,_measurement,node
+,,0,2024-05-16T23:30:00.000000000Z,2024-05-17T00:00:00.000000000Z,2024-05-16T23:30:00.000000000Z,16.8,BME280_temperature,feinstaub,esp8266-15514816
+,,0,2024-05-16T23:30:00.000000000Z,2024-05-17T00:00:00.000000000Z,2024-05-16T23:45:00.000000000Z,17.47,BME280_temperature,feinstaub,esp8266-15514816
+,,0,2024-05-16T23:30:00.000000000Z,2024-05-17T00:00:00.000000000Z,2024-05-17T00:00:00.000000000Z,17.87,BME280_temperature,feinstaub,esp8266-15514816
