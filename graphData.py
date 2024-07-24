@@ -22,7 +22,7 @@ plt.rcParams['axes.xmargin'] = 0
 with open ('config.yml', 'r') as config:
     constants = yaml.safe_load(config)
 
-data = pd.read_csv('merged.csv', dayfirst=True, usecols=['time', 'temp_x', 'temp_y'], parse_dates=["time"], index_col=["time"])
+data = pd.read_csv('merged.csv', date_format = "%s", dayfirst=True, usecols=['time', 'temp_x', 'temp_y'], parse_dates=["time"], index_col=["time"])
 data.columns = ['T_indoors', 'T_outdoors']
 
 print(data)
